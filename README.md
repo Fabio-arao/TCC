@@ -36,7 +36,7 @@ Este projeto consiste em um robô desenvolvido em Python para baixar dados do me
 
 ## Executando o Robô
 
-1. **Com o ambiente virtual ativado e as dependências instaladas, ou o contêiner Selenium rodando, execute o robô**:
+1. **Com o ambiente virtual ativado e as dependências instaladas execute o robô**:
    ```bash
    python main.py
 **O script irá acessar o site do Bacen, coletar os dados e salvá-los em arquivos .xlsx.**
