@@ -66,11 +66,19 @@ class PageElement(ABC):
         return self.webdriver.switch_to.frame(to)
 
 class ConfigWebDriver():
-    def __init__(self):
-        self.s=Service(ChromeDriverManager(version="114.0.5735.90").install())
-        self.options = ChromeOptions()
-        self.prefs = {"download.default_directory" : os.getcwd(),         
-                      "profile.content_settings.exceptions.automatic_downloads.*.setting": 1 }
-        self.options.add_experimental_option("prefs", {"focus_on_tab_change": False})
-        self.options.add_experimental_option('excludeSwitches', ['enable-logging'])
-        self.options.add_experimental_option("prefs", self.prefs) 
+     def __init__(self) -> None:   
+    
+        self.s = Service(ChromeDriverManager().install())  #version="114.0.5735.90"
+        self.opt = ChromeOptions()
+        prefs = {
+            "download.default_directory" : os.getcwd(),         
+            "profile.content_settings.exceptions.automatic_downloads.*.setting": 1, 
+            "safebrowsing.disable_download_protection": True,
+            }
+    
+        self.opt.add_argument('--ignore-certificate-errors')    
+        self.opt.add_experimental_option("prefs", prefs)
+        self.opt.add_argument("--disable-application-cache")  
+        self.opt.add_argument("--disable-cache")  
+        self.opt.add_argument("--disable-offline-load-stale-cache")
+        self.opt.add_argument("--disable-infobars")

@@ -13,3 +13,8 @@ def setup_log(path):
 def print_log(msg):
     print(msg)
     logging.info(msg)
+
+TRYS = {
+    'start': 1,
+    'max': 10
+}

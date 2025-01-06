@@ -24,14 +24,25 @@ class BacenBot(PageElement):
         """
         self.wait_(30).until(EC.title_is('Banco de dados - consórcios'))
         self.wait_(30).until(EC.presence_of_element_located((By.ID,'framelegado')))  
-        self.switch_to_frame('framelegado') 
-        all_selected_options = Select(self.find((By.ID, 'Consorcios'))).options      
+        self.switch_to_frame('framelegado')  
+        ini = 'Março/2024 (435 KB)'
+        end = 'Março/2018 (426 KB)'
+        all_selected_options = Select(self.find((By.ID, 'Consorcios'))).options    #Março/2018   
 
-        for op in all_selected_options[1:77]:   #[1:77]                             
+        for i, op in enumerate(all_selected_options):
+            if ini in op.text:
+                init = i
+
+        for i, op in enumerate(all_selected_options):
+            if end in op.text:
+                finals = i
+
+        for op in all_selected_options[init : finals+1]: 
             Select(self.find((By.ID, 'Consorcios'))).select_by_visible_text(op.text)
             self.find((By.ID, 'Consorcios')).send_keys(Keys.NULL)
             ActionChains(self.webdriver).send_keys(Keys.TAB + Keys.ENTER).perform() 
-            time.sleep(1)        
+            time.sleep(1) 
+                 
         zip_archive = [] 
         
         for file in os.listdir():     
@@ -65,15 +76,24 @@ class BacenBot(PageElement):
         """
         Faz o Download da base de dados. 
         """
+        self.open_url('https://www.bcb.gov.br/estabilidadefinanceira/consorciobd')
         self.wait_(30).until(EC.title_is('Banco de dados - consórcios'))
         self.wait_(30).until(EC.presence_of_element_located((By.ID,'framelegado')))  
         self.switch_to_frame('framelegado') 
         all_selected_options = Select(self.finds((By.ID, 'Consorcios'))[1]).options      
+        
+        ini = 'Março/2024 (95 KB)'
+        end = 'Março/2018 (75 KB)'
 
-        #EXPLICAR QUE AO PASSAR OS MESES VAI DEPENDER DE QUAL MES ESTA PARA COLETAR OS MESES DE DATAS CORRETAMENTE
-        # NÃO DEIXAR DE EXLICAR SOBRE, POIS O BOT PODE COLETAR DATAS ERRADAS NA COMPARAÇÃO
+        for i, op in enumerate(all_selected_options):
+            if ini in op.text:
+                init = i
 
-        for op in all_selected_options[:26]:                                
+        for i, op in enumerate(all_selected_options):
+            if end in op.text:
+                finals = i
+
+        for op in all_selected_options[init : finals+1]:                                
             Select(self.finds((By.ID, 'Consorcios'))[1]).select_by_visible_text(op.text)
             self.finds((By.ID, 'Consorcios'))[1].send_keys(Keys.NULL)
             ActionChains(self.webdriver).send_keys(Keys.TAB + Keys.ENTER).perform() 
