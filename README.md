@@ -65,8 +65,6 @@ A técnica de Data Wrangling é aplicada para:
 - Tratamento de datas e valores numéricos.
 - Formatação e preparação para as análises.
 
-## Contribuindo
-Pull requests são bem-vindos. Para grandes mudanças, por favor, abra uma issue primeiro para discutir o que você gostaria de alterar.
 
 ## Licença
 Este projeto está licenciado sob os termos da licença [MIT](https://opensource.org/licenses/MIT).
